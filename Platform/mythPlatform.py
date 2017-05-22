@@ -30,6 +30,24 @@ class mythPlatform(Platform):
         reqUrl = self.baseUrl + "uGetArea?"
         req = requests.get(reqUrl)
         content = str(req.content,encoding="utf-8")
-        return content.strip("\n")
+        return content.split("\n")
 
-    
+
+    def getPhoneNumber(self, args):
+        reqUrl = self.baseUrl + "pubApi/GetPhone"
+        args["token"] = self.token
+        req = requests.get(reqUrl,args)
+        content = str(req.content,encoding="utf-8")
+        retList = content.split(";")
+        retLen = len(retList)
+        if retLen > 0:
+            retList.pop()
+        return retList
+
+    def getPhoneMessage(self, itemId, phoneNum):
+        reqURL = self.baseUrl + "pubApi/GMessage"
+        req = requests.get(reqURL,{"token":self.token,
+                                   "ItemId":itemId,
+                                   "Phone":phoneNum})
+        content = str(req.content,encoding="utf-8")
+        return content

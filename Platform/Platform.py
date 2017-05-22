@@ -26,7 +26,7 @@ class Platform:
         '''
         pass
 
-    def getPhoneNumber(self, **args):
+    def getPhoneNumber(self, args):
         '''
         获取手机号
         :param args: 手机号参数 
